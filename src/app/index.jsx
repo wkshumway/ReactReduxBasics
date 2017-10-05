@@ -32,14 +32,39 @@
 
 /* currently at 9:58 in Redux #4 */
 import { createStore } from "redux";
+import {combineReducers} from "redux";
 
-const initialState = {
-    result: 1,
-    lastValues: [],
-};
+// const initialState = {
+//     result: 1,
+//     lastValues: [],
+/// reducer directs all dispatches and changes the state accordingly
+const userReducer = (state = {
+    name: "Wellesley",
+    age: 21,
+}, action) => {
+    switch (action.type) {
+        case "SET_NAME":
+            state = {
+                ...state,
+                name: action.payload,
+            };
+            break;
+        case "SET_AGE":
+            state = {
+                ...state,
+                age: action.payload,
+            };
+            break;
+    }
+    return state;
+} ;
+
 
 // reducer directs all dispatches and changes the state accordingly
-const reducer = (state = initialState, action) => {
+const mathReducer = (state = {
+    result: 1,
+    lastValues: [],
+}, action) => {
     /* above the '=' creates an optional default parameter. */
     /* the first time dispatches are called, they will use */
     /* that parameter. Afterwards they will use the new state */
@@ -69,7 +94,9 @@ const reducer = (state = initialState, action) => {
 } ;
 
 // store takes a reducer and an optional initial state
-const store = createStore(reducer);
+// mathReducer and userReducer are automatically expanded to key value
+// pairs with the same name for each
+const store = createStore(combineReducers({mathReducer, userReducer}));
 
 store.subscribe(() => {
     /* It looks like state is stored in store */
@@ -92,4 +119,16 @@ store.dispatch({
     type: "SUBTRACT",
     /* always use payload here for interfacing purposes */
     payload: 88,
+});
+
+store.dispatch({
+    type: "SET_AGE",
+    /* always use payload here for interfacing purposes */
+    payload: 30,
+});
+
+store.dispatch({
+    type: "SET_NAME",
+    /* always use payload here for interfacing purposes */
+    payload: "Elle",
 });
