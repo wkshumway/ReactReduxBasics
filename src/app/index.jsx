@@ -31,8 +31,7 @@
 // render(<App />, window.document.getElementById('app'));
 
 /* currently at 9:58 in Redux #4 */
-import { createStore } from "redux";
-import {combineReducers} from "redux";
+import { createStore , combineReducers, applyMiddleware} from "redux";
 
 // const initialState = {
 //     result: 1,
@@ -93,10 +92,17 @@ const mathReducer = (state = {
     return state;
 } ;
 
+// fat-arrow function chain means that you can use
+// any of the arguments passed in the parentheses
+const myLogger = (store) => (next) => (action) => {
+    console.log("Logged Action: ", action);
+    next(action);
+};
+
 // store takes a reducer and an optional initial state
 // mathReducer and userReducer are automatically expanded to key value
 // pairs with the same name for each
-const store = createStore(combineReducers({mathReducer, userReducer}));
+const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(myLogger));
 
 store.subscribe(() => {
     /* It looks like state is stored in store */
