@@ -1,37 +1,6 @@
-// import React from "react";
-// import {render} from "react-dom";
-
-// import { User } from './components/User';
-// import { Main } from './components/Main';
-
-// class App extends React.Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             username: "Max"
-//         };
-//     }
-
-//     changeUsername(newName) {
-//         this.setState({
-//             username: newName
-//         });
-//     }
-
-//     render() {
-//         return (
-//             <div className="container">
-//                 <Main changeUsername={this.changeUsername.bind(this)}/>
-//                 <User username={this.state.username}/>
-//             </div>
-//         );
-//     }
-// }
-
-// render(<App />, window.document.getElementById('app'));
-
-/* currently at 9:58 in Redux #4 */
+/* currently at 6:58 in Redux #6 */
 import { createStore , combineReducers, applyMiddleware} from "redux";
+import {createLogger} from "redux-logger";
 
 // const initialState = {
 //     result: 1,
@@ -102,11 +71,14 @@ const myLogger = (store) => (next) => (action) => {
 // store takes a reducer and an optional initial state
 // mathReducer and userReducer are automatically expanded to key value
 // pairs with the same name for each
-const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(myLogger));
+const store = createStore(
+    combineReducers({mathReducer, userReducer}),
+    {},
+    applyMiddleware(createLogger()));
 
 store.subscribe(() => {
     /* It looks like state is stored in store */
-    console.log("Store updated!", store.getState());
+    // console.log("Store updated!", store.getState());
 });
 
 store.dispatch({
