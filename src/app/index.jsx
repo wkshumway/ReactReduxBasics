@@ -1,6 +1,11 @@
-/* currently at 6:58 in Redux #6 */
-import { createStore , combineReducers, applyMiddleware} from "redux";
+/* currently at 18:43 in Redux #7 */
+import {render} from "react-dom";
+import React from "react";
+import {createStore , combineReducers, applyMiddleware} from "redux";
 import {createLogger} from "redux-logger";
+import {Provider} from "react-redux";
+
+import App from "./components/App.jsx";
 
 // const initialState = {
 //     result: 1,
@@ -81,32 +86,8 @@ store.subscribe(() => {
     // console.log("Store updated!", store.getState());
 });
 
-store.dispatch({
-    type: "ADD",
-    /* always use payload here for interfacing purposes */
-    payload: 100,
-});
-
-store.dispatch({
-    type: "ADD",
-    /* always use payload here for interfacing purposes */
-    payload: 22,
-});
-
-store.dispatch({
-    type: "SUBTRACT",
-    /* always use payload here for interfacing purposes */
-    payload: 88,
-});
-
-store.dispatch({
-    type: "SET_AGE",
-    /* always use payload here for interfacing purposes */
-    payload: 30,
-});
-
-store.dispatch({
-    type: "SET_NAME",
-    /* always use payload here for interfacing purposes */
-    payload: "Elle",
-});
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    window.document.getElementById('app'));
