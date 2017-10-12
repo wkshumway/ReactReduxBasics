@@ -5,7 +5,7 @@ import {createStore , combineReducers, applyMiddleware} from "redux";
 import {createLogger} from "redux-logger";
 import {Provider} from "react-redux";
 
-import App from "./components/App.jsx";
+import App from "./container/App.jsx";
 
 // const initialState = {
 //     result: 1,
