@@ -1,5 +1,7 @@
 import {createStore , combineReducers, applyMiddleware} from "redux";
 import {createLogger} from "redux-logger";
+import thunk from "redux-thunk";
+import promise from "redux-promise-middleware";
 
 import math from "./reducers/mathReducer.jsx";
 import user from "./reducers/userReducer.jsx";
@@ -13,5 +15,7 @@ export default createStore(
         user, 
     }),
     {},
-    applyMiddleware(createLogger())
+    //parentheses after promise mean that it is package that must
+    //be executed 
+    applyMiddleware(createLogger(), thunk, promise())
 );
