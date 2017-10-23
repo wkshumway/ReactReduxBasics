@@ -12,11 +12,11 @@ export const Main = (props) => {
                 <div className="col-xs-12">
                     <button
                         className="btn btn-primary"
-                        onClick={() => changeUsername('Anna')}>
+                        onClick={() => props.changeUsername('Anna')}>
                             Change the Username
                     </button>
                 </div>
             </div>
         </div>
     );
-}
+};

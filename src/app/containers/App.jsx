@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { User } from '../components/User.jsx';
 import { Main } from '../components/Main.jsx';
+import { setName } from '../actions/userAction.jsx';
 
 class App extends React.Component {
     render() {
@@ -15,24 +16,23 @@ class App extends React.Component {
     }
 }
 
+// here we provide the store's state to mapStateToProps, a pure function
 const mapStateToProps = (state) => {
     return {
-        user: state.userReducer,
-        math: state.mathReducer,
+        user: state.user,
+        math: state.math,
     };
 };
 
-const mapDispatchtoProps= (dispatch) => {
+// here we provide the store's dispatch to mapDispatchToProps, a pure function
+const mapDispatchToProps = (dispatch) => {
     return {
         setName: (name) => {
-            dispatch({
-                type: "SET_NAME",
-                payload: name,
-            });
+          dispatch(setName(name)) ;
         }
     };
 };
 
 // this runs another function which expects to get the function
 // you want to hook up: "App"
-export default connect(mapStateToProps, mapDispatchtoProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
